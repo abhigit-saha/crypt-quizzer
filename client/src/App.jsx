@@ -1,41 +1,36 @@
-import React, { useEffect, useState } from "react";
+import React, { useState, useEffect } from "react";
+import Signout from "./Signout";
 
 function App() {
-  const [backendData, setBackendData] = useState("");
+  const [user, setUser] = useState({});
 
   useEffect(() => {
     const fetchData = async () => {
-      //const response = await fetch("http://localhost:5000/api");
+      try {
+        const response = await fetch("http://localhost:5000/", {
+          method: "GET",
+          credentials: "include",
+        });
 
-      const response = await fetch("http://localhost:5000/api", {
-        method: "GET",
-        // headers: {
-        //   "Content-Type": "application/json",
-        // },
-      });
+        if (!response.ok) {
+          throw new Error("Network response was not ok");
+        }
 
-      console.log("hello");
-      console.log(response.json());
-      const json = await response.json();
-
-      // if (response.ok) {
-      //   setBackendData(json);
-      //   console.log("response is ok");
-      // } else {
-      //   console.log("response is not ok");
-      // }
+        const userData = await response.json();
+        setUser(userData.user);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
     };
+
     fetchData();
   }, []);
+
   return (
     <div>
-      {/* {typeof backendData.users === "undefined" ? (
-        <p>Loading...</p>
-      ) : (
-        backendData.users.map((user, i) => {
-          <p key={i}>{user}</p>;
-        })
-      )} */}
+      <p>Logged in user: {user.username}</p>
+      {/* Access other user properties similarly */}
+      <Signout />
     </div>
   );
 }
