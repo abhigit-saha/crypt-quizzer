@@ -1,0 +1,103 @@
+{
+	"compiler": {
+		"version": "0.8.20+commit.a1b79de6"
+	},
+	"language": "Solidity",
+	"output": {
+		"abi": [
+			{
+				"anonymous": false,
+				"inputs": [
+					{
+						"indexed": true,
+						"internalType": "address",
+						"name": "quizContract",
+						"type": "address"
+					},
+					{
+						"indexed": true,
+						"internalType": "address",
+						"name": "host",
+						"type": "address"
+					},
+					{
+						"indexed": false,
+						"internalType": "uint256",
+						"name": "prizePool",
+						"type": "uint256"
+					}
+				],
+				"name": "QuizCreated",
+				"type": "event"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "entryFee",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "initialPrizePool",
+						"type": "uint256"
+					}
+				],
+				"name": "createQuiz",
+				"outputs": [
+					{
+						"internalType": "address",
+						"name": "",
+						"type": "address"
+					}
+				],
+				"stateMutability": "payable",
+				"type": "function"
+			}
+		],
+		"devdoc": {
+			"kind": "dev",
+			"methods": {},
+			"version": 1
+		},
+		"userdoc": {
+			"kind": "user",
+			"methods": {},
+			"version": 1
+		}
+	},
+	"settings": {
+		"compilationTarget": {
+			"contracts/QuizFactory.sol": "QuizFactory"
+		},
+		"evmVersion": "shanghai",
+		"libraries": {},
+		"metadata": {
+			"bytecodeHash": "ipfs"
+		},
+		"optimizer": {
+			"enabled": false,
+			"runs": 200
+		},
+		"remappings": []
+	},
+	"sources": {
+		"contracts/Quiz.sol": {
+			"keccak256": "0xe70bb1d730813caecd1ecc792ff76c495bc5c104af3323303c97ded1460d417b",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://b084a120d80c565f63f15087918e9cb267c9ba73137cec9acb71228a7a374af3",
+				"dweb:/ipfs/QmaWUqvai2Mu6uf3cHBf8sL5VuVzjfPrVn2s2fPaRbfJuC"
+			]
+		},
+		"contracts/QuizFactory.sol": {
+			"keccak256": "0x9208721e1d8be52c379a7881b5080edc6f3607a6c58ca85661c26dcac83a0a95",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://04737d6521a4f442a1d1554a484c7edda704878c1231b642294fb6a913772f62",
+				"dweb:/ipfs/QmfZQ5UMuzgLVbzWuxuXwMnG3f3qagFsq3dnuSCMfz5o2r"
+			]
+		}
+	},
+	"version": 1
+}
