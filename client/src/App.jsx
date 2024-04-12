@@ -56,14 +56,14 @@ function App() {
           navigate("/login")
         ) : (
           <div>
-            <Link to={`/users/${user._id}`}>
+            <a href={`/users/${user._id}`}>
               <p>Logged in user: {user.username}</p>
-            </Link>
+            </a>
             {console.log(user.username)}
             {/* Access other user properties similarly */}
             <button onClick={() => navigate("/host-quiz")}>Host Quiz</button>
             <Signout />
-            {""}
+
             <Quizzes />
           </div>
         )}

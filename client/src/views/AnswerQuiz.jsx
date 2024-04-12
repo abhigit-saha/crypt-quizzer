@@ -61,19 +61,24 @@ function AnswerQuiz() {
   };
 
   return (
-    <div>
+    <div className="container">
       <h2>Answer the Quiz</h2>
+      <hr className="my-4"></hr>
       <form onSubmit={handleSubmit}>
         {quizzes[id].questions.map((questionData, index) => (
           <div key={index}>
-            <p>{questionData.question}</p>
-            <input
-              type="text"
-              value={answers[index]}
-              onChange={(e) => handleInputChange(index, e)}
-            />
+            <div className="form-group">
+              <label>{questionData.question}</label>
+              <input
+                type="text"
+                className="form-control"
+                value={answers[index]}
+                onChange={(e) => handleInputChange(index, e)}
+              />
+            </div>
           </div>
         ))}
+        <hr className="my-5"></hr>
         <button type="submit">Submit Answers</button>
       </form>
       {/* <form onSubmit = {handleSubmit}>

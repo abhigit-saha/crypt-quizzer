@@ -11,8 +11,9 @@ function Dashboard() {
   const { answers } = useContext(AnswersContext);
 
   return (
-    <div>
+    <div className="container">
       <h2>{user.username}</h2>
+      <hr className="my-4"></hr>
       <p>Quizzes participated in: </p>
       {/* {console.log(answers)} */}
       {answers.map(
