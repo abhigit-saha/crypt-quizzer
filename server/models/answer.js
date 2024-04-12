@@ -10,6 +10,10 @@ const answerSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+    quizId: {
+      type: String,
+      required: true,
+    },
     answers: {
       type: Array,
       required: true,
