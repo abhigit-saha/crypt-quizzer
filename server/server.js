@@ -90,11 +90,15 @@ app.get("/api", (req, res) => {
 });
 
 app.post("/api/signup", async (req, res) => {
-  const { username, password } = req.body; // Corrected from res.body to req.body
+  const { username, password, answeredQuizzes } = req.body; // Corrected from res.body to req.body
   console.log(username, " ", password);
   bcrypt.hash(req.body.password, 10, async (err, hashedPassword) => {
     try {
-      const user = await User.create({ username, password: hashedPassword });
+      const user = await User.create({
+        username,
+        password: hashedPassword,
+        answeredQuizzes,
+      });
       res.status(200).json(user);
     } catch (error) {
       res.status(400).json({ error: error.message });
@@ -163,6 +167,32 @@ app.get("/api/answer", async (req, res) => {
   } catch (err) {
     console.error(err);
     res.status(500).json({ message: "Server Error" });
+  }
+});
+
+app.put("/api/answer", async (req, res) => {
+  try {
+    const { username, answeredQuizzes } = req.body;
+    // Find the user by userId
+    const user = await User.findOne({ username: username });
+
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    // Update answeredQuizzes array
+    user.answeredQuizzes = answeredQuizzes;
+
+    // Save the updated user
+    await user.save();
+
+    res.status(200).json({
+      message: "Answered quizzes array updated successfully",
+      user: user,
+    });
+  } catch (error) {
+    console.error("Error updating answered quizzes array:", error);
+    res.status(500).json({ message: "Internal Server Error" });
   }
 });
 app.get("/api/quiz", async (req, res) => {

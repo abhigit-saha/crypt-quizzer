@@ -10,6 +10,9 @@ const userSchema = new Schema(
       type: String,
       require: true,
     },
+    answeredQuizzes: {
+      type: Array,
+    },
   },
   { timestamps: true }
 );

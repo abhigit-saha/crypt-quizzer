@@ -1,17 +1,46 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { QuizzesContext } from "../contexts/quizzesContext";
 import { UserContext } from "../contexts/userContext";
 
 function AnswerQuiz() {
+  //not using quizContext here because that wasn't working :(
+  //most probably because the page was being rendered before the fetch was resolved.
   const { quizzes } = useContext(QuizzesContext);
-  const { id } = useParams();
+  const { index } = useParams();
   const { user } = useContext(UserContext);
+  const answeredQuizzes = user.answeredQuizzes;
+  answeredQuizzes.push(quizzes[index]);
+
+  // const handleAttemptQuiz = async (e) => {
+  //   try {
+  //     const response = await fetch("http://localhost:5000/api/answer", {
+  //       method: "PUT",
+  //       credentials: "include",
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //       },
+  //       body: JSON.stringify({ username: user.username, answeredQuizzes }),
+  //     });
+  //     console.log("success fetch");
+  //     if (response.ok) {
+  //       const data = await response.json();
+  //       console.log(data);
+  //       console.log("login successful");
+  //     } else {
+  //       console.error("Login failed");
+  //     }
+  //   } catch (error) {
+  //     console.error("Login failed:", error);
+  //   }
+  // };
+  console.log(index);
+  console.log(quizzes);
   // console.log("user.username : ", user.username);
   // console.log("quizzes[id].header :", quizzes[id].header);
   const [answers, setAnswers] = useState({
     username: user.username,
-    header: quizzes[id].header,
+    header: quizzes[index].header,
     answers: [],
     score: 0,
   });
@@ -28,7 +57,7 @@ function AnswerQuiz() {
     e.preventDefault();
     //calculate the score for the user
     for (var i = 0; i < answers.answers.length; i++) {
-      if (answers.answers[i] === quizzes[id].questions[i].answer) {
+      if (answers.answers[i] === quizzes[index].questions[i].answer) {
         answers.score++;
       }
     }
@@ -52,6 +81,9 @@ function AnswerQuiz() {
         console.log("Answers submitted successfully");
         // Redirect to success page upon successful submission
         navigate("/");
+        //to actually show the updated homescreen with quizzes that are given deleted
+        //we need to refresh
+        window.location.reload();
       } else {
         console.error("Failed to submit answers");
       }
@@ -65,7 +97,7 @@ function AnswerQuiz() {
       <h2>Answer the Quiz</h2>
       <hr className="my-4"></hr>
       <form onSubmit={handleSubmit}>
-        {quizzes[id].questions.map((questionData, index) => (
+        {quizzes[index].questions.map((questionData, index) => (
           <div key={index}>
             <div className="form-group">
               <label>{questionData.question}</label>

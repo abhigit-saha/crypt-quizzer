@@ -6,10 +6,13 @@ import { Outlet } from "react-router-dom";
 import Quizzes from "./views/Quizzes";
 import "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
+import { QuizzesContext } from "./contexts/quizzesContext";
+import { AnswersContext } from "./contexts/answersContext";
 
 function App() {
   // const [user, setUser] = useState({});
   const { user } = useContext(UserContext);
+  const { quizzes } = useContext(QuizzesContext);
 
   const navigate = useNavigate();
 

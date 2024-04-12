@@ -23,7 +23,7 @@ export const QuizzesProvider = ({ children }) => {
     };
 
     fetchQuizzes();
-  }, [quizzes]);
+  }, []);
 
   return (
     <QuizzesContext.Provider value={{ quizzes }}>
