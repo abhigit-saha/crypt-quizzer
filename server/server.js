@@ -12,6 +12,8 @@ const bcrypt = require("bcryptjs");
 const quizController = require("./controllers/quizController");
 const Quiz = require("./models/quiz");
 const Answer = require("./models/answer");
+const userController = require("./controllers/userController");
+
 const mongoDb =
   "mongodb+srv://abhi-auth:test1234@cluster0.mic4h.mongodb.net/crypt-quiz?retryWrites=true&w=majority&appName=Cluster0";
 
@@ -85,126 +87,26 @@ app.use((req, res, next) => {
 });
 
 // Routes
-app.get("/api", (req, res) => {
-  res.json({ users: ["1", "2"] });
-});
 
-app.post("/api/signup", async (req, res) => {
-  const { username, password, answeredQuizzes } = req.body; // Corrected from res.body to req.body
-  console.log(username, " ", password);
-  bcrypt.hash(req.body.password, 10, async (err, hashedPassword) => {
-    try {
-      const user = await User.create({
-        username,
-        password: hashedPassword,
-        answeredQuizzes,
-      });
-      res.status(200).json(user);
-    } catch (error) {
-      res.status(400).json({ error: error.message });
-      console.log("there was an error", error);
-    }
-  });
-});
+app.post("/api/signup", userController.signup);
 
-app.post(
-  "/api/login",
-  passport.authenticate("local"),
-  function (req, res, next) {
-    console.log("post successful");
-    res.json({ success: true, user: req.user });
-    next();
-  }
-);
+app.post("/api/login", passport.authenticate("local"), userController.login);
 
 app.get("/", (req, res) => {
   res.json({ user: req.user });
   console.log();
 });
 
-app.get("/api/logout", (req, res, next) => {
-  req.logout((err) => {
-    if (err) {
-      return next(err);
-    }
-    res.redirect("/api");
-  });
-});
+app.get("/api/logout", userController.logout);
 
 // app.post("/api/host", quizController.hostQuiz);
-app.post("/api/host", async (req, res) => {
-  try {
-    const { quizzes } = req.body;
-    console.log(quizzes);
-    console.log(quizzes.questions);
-    // Assuming quizzes is an array of objects containing header and questions
-    const createdQuizzes = await Quiz.create(quizzes);
-    res.status(201).json({ success: true, quizzes: createdQuizzes });
-  } catch (error) {
-    res.status(500).json({ success: false, message: error.message });
-  }
-});
+app.post("/api/host", quizController.host);
 
-app.post("/api/answer", async (req, res) => {
-  try {
-    console.log("trying to get the answers");
-    const answers = req.body;
-    // console.log(answers);
-    console.log("Got the answers");
-    console.log(answers);
-    // Assuming quizzes is an array of objects containing header and questions
-    const createdAnswers = await Answer.create(answers);
-    res.status(201).json({ success: true, answers: createdAnswers });
-  } catch (error) {
-    res.status(500).json({ success: false, message: error.message });
-  }
-});
+app.post("/api/answer", quizController.postAnswer);
 
-app.get("/api/answer", async (req, res) => {
-  try {
-    const answers = await Answer.find().sort({ createdAt: -1 });
-    res.json(answers);
-  } catch (err) {
-    console.error(err);
-    res.status(500).json({ message: "Server Error" });
-  }
-});
+app.get("/api/answer", quizController.getAnswers);
 
-app.put("/api/answer", async (req, res) => {
-  try {
-    const { username, answeredQuizzes } = req.body;
-    // Find the user by userId
-    const user = await User.findOne({ username: username });
-
-    if (!user) {
-      return res.status(404).json({ message: "User not found" });
-    }
-
-    // Update answeredQuizzes array
-    user.answeredQuizzes = answeredQuizzes;
-
-    // Save the updated user
-    await user.save();
-
-    res.status(200).json({
-      message: "Answered quizzes array updated successfully",
-      user: user,
-    });
-  } catch (error) {
-    console.error("Error updating answered quizzes array:", error);
-    res.status(500).json({ message: "Internal Server Error" });
-  }
-});
-app.get("/api/quiz", async (req, res) => {
-  try {
-    const quizzes = await Quiz.find().sort({ createdAt: -1 });
-    // console.log(quizzes);
-    res.json(quizzes);
-  } catch (err) {
-    console.error(err);
-    res.status(500).json({ message: "Server Error" });
-  }
-});
+app.get("/api/quiz", quizController.getQuizzes);
 
 // Start the server
 app.listen(5000, () => {

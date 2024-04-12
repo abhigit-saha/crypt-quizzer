@@ -52,7 +52,7 @@ const Quizzes = () => {
               (quiz, index) =>
                 quiz.username !== user.username &&
                 !answeredQuizzes.find(
-                  (answered) => answered.header === quiz.header
+                  (answered) => answered.quizId === quiz._id
                 ) && (
                   // <div
                   //   key={index}

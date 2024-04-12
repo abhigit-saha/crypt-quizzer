@@ -4,13 +4,9 @@ import { QuizzesContext } from "../contexts/quizzesContext";
 import { UserContext } from "../contexts/userContext";
 
 function AnswerQuiz() {
-  //not using quizContext here because that wasn't working :(
-  //most probably because the page was being rendered before the fetch was resolved.
   const { quizzes } = useContext(QuizzesContext);
   const { index } = useParams();
   const { user } = useContext(UserContext);
-  const answeredQuizzes = user.answeredQuizzes;
-  answeredQuizzes.push(quizzes[index]);
 
   // const handleAttemptQuiz = async (e) => {
   //   try {
@@ -41,6 +37,7 @@ function AnswerQuiz() {
   const [answers, setAnswers] = useState({
     username: user.username,
     header: quizzes[index].header,
+    quizId: quizzes[index]._id,
     answers: [],
     score: 0,
   });
