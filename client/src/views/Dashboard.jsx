@@ -1,0 +1,39 @@
+import React, { useContext } from "react";
+import { UserContext } from "../contexts/userContext";
+import { QuizzesContext } from "../contexts/quizzesContext";
+import { AnswersContext } from "../contexts/answersContext";
+import "react-bootstrap";
+import "bootstrap/dist/css/bootstrap.min.css";
+
+function Dashboard() {
+  const { user } = useContext(UserContext);
+  const { quizzes } = useContext(QuizzesContext);
+  const { answers } = useContext(AnswersContext);
+
+  return (
+    <div>
+      <h2>{user.username}</h2>
+      <p>Quizzes participated in: </p>
+      {/* {console.log(answers)} */}
+      {answers.map(
+        (answerData, index) =>
+          answerData.username == user.username && (
+            <div className="container" key={index}>
+              <div className="row">
+                <div className="col">
+                  <p>{answerData.header}</p>
+                </div>
+                <div className="col">
+                  <p>
+                    {answerData.score}/{answerData.answers.length}
+                  </p>
+                </div>
+              </div>
+            </div>
+          )
+      )}
+    </div>
+  );
+}
+
+export default Dashboard;

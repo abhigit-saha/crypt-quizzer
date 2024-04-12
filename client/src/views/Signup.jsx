@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import "react-bootstrap";
+import "bootstrap/dist/css/bootstrap.min.css";
 
 function Signup() {
   const navigate = useNavigate();
@@ -46,6 +48,7 @@ function Signup() {
 
         <button>Submit</button>
       </form>
+      <button onClick={() => navigate("/login")}>Login</button>
     </>
   );
 }

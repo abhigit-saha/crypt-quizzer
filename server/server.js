@@ -9,7 +9,9 @@ const User = require("./models/user");
 const Schema = mongoose.Schema;
 const app = express();
 const bcrypt = require("bcryptjs");
-
+const quizController = require("./controllers/quizController");
+const Quiz = require("./models/quiz");
+const Answer = require("./models/answer");
 const mongoDb =
   "mongodb+srv://abhi-auth:test1234@cluster0.mic4h.mongodb.net/crypt-quiz?retryWrites=true&w=majority&appName=Cluster0";
 
@@ -95,9 +97,8 @@ app.post("/api/signup", async (req, res) => {
       const user = await User.create({ username, password: hashedPassword });
       res.status(200).json(user);
     } catch (error) {
-      // Added error parameter here
       res.status(400).json({ error: error.message });
-      console.log("there was an error", error); // Log the error for debugging
+      console.log("there was an error", error);
     }
   });
 });
@@ -124,6 +125,55 @@ app.get("/api/logout", (req, res, next) => {
     }
     res.redirect("/api");
   });
+});
+
+// app.post("/api/host", quizController.hostQuiz);
+app.post("/api/host", async (req, res) => {
+  try {
+    const { quizzes } = req.body;
+    console.log(quizzes);
+    console.log(quizzes.questions);
+    // Assuming quizzes is an array of objects containing header and questions
+    const createdQuizzes = await Quiz.create(quizzes);
+    res.status(201).json({ success: true, quizzes: createdQuizzes });
+  } catch (error) {
+    res.status(500).json({ success: false, message: error.message });
+  }
+});
+
+app.post("/api/answer", async (req, res) => {
+  try {
+    console.log("trying to get the answers");
+    const answers = req.body;
+    // console.log(answers);
+    console.log("Got the answers");
+    console.log(answers);
+    // Assuming quizzes is an array of objects containing header and questions
+    const createdAnswers = await Answer.create(answers);
+    res.status(201).json({ success: true, answers: createdAnswers });
+  } catch (error) {
+    res.status(500).json({ success: false, message: error.message });
+  }
+});
+
+app.get("/api/answer", async (req, res) => {
+  try {
+    const answers = await Answer.find().sort({ createdAt: -1 });
+    res.json(answers);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: "Server Error" });
+  }
+});
+app.get("/api/quiz", async (req, res) => {
+  try {
+    const quizzes = await Quiz.find().sort({ createdAt: -1 });
+    // console.log(quizzes);
+    res.json(quizzes);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: "Server Error" });
+  }
 });
 
 // Start the server

@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import "react-bootstrap";
+import "bootstrap/dist/css/bootstrap.min.css";
 
 function Login() {
   const navigate = useNavigate();
@@ -21,15 +23,20 @@ function Login() {
       console.log("success fetch");
       if (response.ok) {
         const data = await response.json();
-        console.log(data); // Assuming server responds with user data upon successful login
+        console.log(data);
         console.log("login successful");
-        navigate("/"); // Redirect
+        navigate("/");
+        // for some reason the previous users data was visible when we navigated after logging in
+        // so we had to manually refresh
+        // below is just a hacky way to prevent displaying the previous users data
+        window.location.reload();
       } else {
         console.error("Login failed");
       }
     } catch (error) {
       console.error("Login failed:", error);
     }
+    navigate("/");
   };
 
   return (
@@ -50,6 +57,7 @@ function Login() {
 
         <button>Login</button>
       </form>
+      <button onClick={() => navigate("/signup")}>Sign Up</button>
     </>
   );
 }

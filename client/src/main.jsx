@@ -4,7 +4,14 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import App from "./App.jsx";
 import Signup from "./views/Signup.jsx";
 import Login from "./views/Login.jsx";
+import HostQuiz from "./views/HostQuiz.jsx";
+import Quizzes from "./views/Quizzes.jsx";
+import Dashboard from "./views/Dashboard.jsx";
 import "./index.css";
+import { UserProvider } from "./contexts/userContext.jsx";
+import { QuizzesProvider } from "./contexts/quizzesContext.jsx";
+import { AnswersProvider } from "./contexts/answersContext.jsx";
+import AnswerQuiz from "./views/AnswerQuiz.jsx";
 
 const router = createBrowserRouter([
   {
@@ -19,10 +26,29 @@ const router = createBrowserRouter([
     path: "login",
     element: <Login />,
   },
+  {
+    path: "host-quiz",
+    element: <HostQuiz />,
+  },
+  {
+    path: "quiz/:id",
+    element: <AnswerQuiz />,
+  },
+  {
+    path: "users/:id",
+    element: <Dashboard />,
+  },
+  // <Route path="/quiz/:id" element={<AnswerQuiz />} />
 ]);
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-    <RouterProvider router={router} />
+    <QuizzesProvider>
+      <UserProvider>
+        <AnswersProvider>
+          <RouterProvider router={router} />
+        </AnswersProvider>
+      </UserProvider>
+    </QuizzesProvider>
   </React.StrictMode>
 );
