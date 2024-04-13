@@ -1,0 +1,169 @@
+{
+	"compiler": {
+		"version": "0.8.25+commit.b61c2a91"
+	},
+	"language": "Solidity",
+	"output": {
+		"abi": [
+			{
+				"anonymous": false,
+				"inputs": [
+					{
+						"indexed": true,
+						"internalType": "address",
+						"name": "host",
+						"type": "address"
+					},
+					{
+						"indexed": true,
+						"internalType": "address",
+						"name": "entryContract",
+						"type": "address"
+					}
+				],
+				"name": "EntryDeployed",
+				"type": "event"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "entryFee",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "prizePool",
+						"type": "uint256"
+					}
+				],
+				"name": "createEntry",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"name": "deployedEntries",
+				"outputs": [
+					{
+						"internalType": "address",
+						"name": "",
+						"type": "address"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "",
+						"type": "address"
+					}
+				],
+				"name": "entryToHost",
+				"outputs": [
+					{
+						"internalType": "address",
+						"name": "",
+						"type": "address"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "getDeployedEntries",
+				"outputs": [
+					{
+						"internalType": "address[]",
+						"name": "",
+						"type": "address[]"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "entryAddress",
+						"type": "address"
+					}
+				],
+				"name": "getHost",
+				"outputs": [
+					{
+						"internalType": "address",
+						"name": "",
+						"type": "address"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			}
+		],
+		"devdoc": {
+			"kind": "dev",
+			"methods": {},
+			"version": 1
+		},
+		"userdoc": {
+			"kind": "user",
+			"methods": {},
+			"version": 1
+		}
+	},
+	"settings": {
+		"compilationTarget": {
+			"contracts/QuizFactory.sol": "QuizFactory"
+		},
+		"evmVersion": "cancun",
+		"libraries": {},
+		"metadata": {
+			"bytecodeHash": "ipfs"
+		},
+		"optimizer": {
+			"enabled": false,
+			"runs": 200
+		},
+		"remappings": []
+	},
+	"sources": {
+		"@openzeppelin/contracts/utils/math/SafeMath.sol": {
+			"keccak256": "0x58b21219689909c4f8339af00813760337f7e2e7f169a97fe49e2896dcfb3b9a",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://ef8e012e946dec20e59f2d4446f4b44bb098f3fa8bac103b1b5112fff777447b",
+				"dweb:/ipfs/QmVTooKWcLkJ9W68yNX4MgdrbAKiAXwuRN9A7f4NkdcdtQ"
+			]
+		},
+		"contracts/Entry.sol": {
+			"keccak256": "0xe113b2559f5913dae4f419998282c76aab530ef9ab0ab6cab3ef63e12021fd59",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://3136e519a97b509d470411158b0d70022c42b4b73e1f5721ff4fd2f74e59bba7",
+				"dweb:/ipfs/QmfCpL4UzaBmGJcpxK1dtxwenZHv1g6GrF7BrwjvWbvX7M"
+			]
+		},
+		"contracts/QuizFactory.sol": {
+			"keccak256": "0xfb1c8d327bde5553a2aaf51e8ec9f1b29771f7f6fd8c4e2d7ea4cb5c73cce7b9",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://ef09060026e44ddc8b627929f0eacf9899b1b22131afcac2e93916b4f0310027",
+				"dweb:/ipfs/QmNLxj61Yi1gRpbHZ25KdH6hbMa393FjtHA8Gq1N68BRaS"
+			]
+		}
+	},
+	"version": 1
+}
