@@ -10,13 +10,13 @@ export const AnswersProvider = ({ children }) => {
       try {
         const response = await fetch("http://localhost:5000/api/answer", {
           method: "GET",
-          credentials: "include", // Include credentials in the request
+          credentials: "include",
         });
         if (!response.ok) {
           throw new Error("Failed to fetch quizzes");
         }
         const answersData = await response.json();
-        setAnswers(answersData); // Corrected state update
+        setAnswers(answersData);
       } catch (error) {
         console.error("Error fetching quizzes:", error);
       }

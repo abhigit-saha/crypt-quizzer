@@ -2,7 +2,7 @@ import React, { useState, useContext, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { QuizzesContext } from "../contexts/quizzesContext";
 import { UserContext } from "../contexts/userContext";
-
+import NB from "./NB";
 function AnswerQuiz() {
   const { quizzes } = useContext(QuizzesContext);
   const { index } = useParams();
@@ -90,30 +90,33 @@ function AnswerQuiz() {
   };
 
   return (
-    <div className="container">
-      <h2>Answer the Quiz</h2>
-      <hr className="my-4"></hr>
-      <form onSubmit={handleSubmit}>
-        {quizzes[index].questions.map((questionData, index) => (
-          <div key={index}>
-            <div className="form-group">
-              <label>{questionData.question}</label>
-              <input
-                type="text"
-                className="form-control"
-                value={answers[index]}
-                onChange={(e) => handleInputChange(index, e)}
-              />
+    <>
+      <NB />
+      <div className="container">
+        <h2>Answer the Quiz</h2>
+        <hr className="my-4"></hr>
+        <form onSubmit={handleSubmit}>
+          {quizzes[index].questions.map((questionData, index) => (
+            <div key={index}>
+              <div className="form-group">
+                <label>{questionData.question}</label>
+                <input
+                  type="text"
+                  className="form-control"
+                  value={answers[index]}
+                  onChange={(e) => handleInputChange(index, e)}
+                />
+              </div>
             </div>
-          </div>
-        ))}
-        <hr className="my-5"></hr>
-        <button type="submit">Submit Answers</button>
-      </form>
-      {/* <form onSubmit = {handleSubmit}>
+          ))}
+          <hr className="my-5"></hr>
+          <button type="submit">Submit Answers</button>
+        </form>
+        {/* <form onSubmit = {handleSubmit}>
         {quizzes[id].questions}
       </form> */}
-    </div>
+      </div>
+    </>
   );
 }
 
