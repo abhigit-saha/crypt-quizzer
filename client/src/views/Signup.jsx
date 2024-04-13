@@ -32,83 +32,56 @@ function Signup() {
 
   return (
     <>
-      <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <a class="navbar-brand" href="#">
-          ChainQ
-        </a>
-        <button
-          class="navbar-toggler"
-          type="button"
-          data-toggle="collapse"
-          data-target="#navbarSupportedContent"
-          aria-controls="navbarSupportedContent"
-          aria-expanded="false"
-          aria-label="Toggle navigation"
-        >
-          <span class="navbar-toggler-icon"></span>
-        </button>
-
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul class="navbar-nav mr-auto">
-            <li class="nav-item active">
-              <a class="nav-link" href="#">
-                Home <span class="sr-only">(current)</span>
-              </a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">
-                AboutUs
-              </a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#" tabindex="-1" aria-disabled="true">
-                Guide
-              </a>
-            </li>
-            <li class="nav-item dropdown">
-              <a
-                class="nav-link dropdown-toggle"
-                href="#"
-                id="navbarDropdown"
-                role="button"
-                data-toggle="dropdown"
-                aria-haspopup="true"
-                aria-expanded="false"
-              >
-                Connect with Us
-              </a>
-              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                <a class="dropdown-item" href="#">
-                  Instagram
-                </a>
-                <a class="dropdown-item" href="#">
-                  Twitter
-                </a>
-                <a class="dropdown-item" href="#">
-                  Facebook
-                </a>
+      <div
+        className="container-fluid d-flex align-items-center justify-content-center"
+        style={{ height: "100vh" }}
+      >
+        <div className="row">
+          <div className="col">
+            <div className="card">
+              <div className="card-header">
+                <h3>Create ChainQ Account</h3>
               </div>
-            </li>
-          </ul>
+              <div className="card-body">
+                <form onSubmit={handleSubmit}>
+                  <div className="form-group">
+                    <label>Enter Username</label>
+                    <input
+                      type="text"
+                      className="form-control"
+                      onChange={(e) => setUsername(e.target.value)}
+                      value={username}
+                    />
+                  </div>
+                  <div className="form-group">
+                    <label>Enter Password</label>
+                    <input
+                      type="password"
+                      className="form-control"
+                      onChange={(e) => setPassword(e.target.value)}
+                      value={password}
+                    />
+                  </div>
+                  <div
+                    class="d-flex justify-content-between"
+                    style={{ margin: "10px" }}
+                  >
+                    <button type="submit" className="btn btn-primary btn-block">
+                      Submit
+                    </button>
+                    <button
+                      className="btn btn-primary btn-block"
+                      onClick={() => navigate("/login")}
+                    >
+                      Login
+                    </button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
         </div>
-      </nav>
-      <form onSubmit={handleSubmit}>
-        <label>Enter Username</label>
-        <input
-          type="text"
-          onChange={(e) => setUsername(e.target.value)}
-          value={username}
-        />
-        <label>Enter Password</label>
-        <input
-          type="text"
-          onChange={(e) => setPassword(e.target.value)}
-          value={password}
-        />
-
-        <button>Submit</button>
-      </form>
-      <button onClick={() => navigate("/login")}>Login</button>
+      </div>
     </>
   );
 }

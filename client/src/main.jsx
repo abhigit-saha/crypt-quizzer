@@ -12,7 +12,7 @@ import { UserProvider } from "./contexts/userContext.jsx";
 import { QuizzesProvider } from "./contexts/quizzesContext.jsx";
 import { AnswersProvider } from "./contexts/answersContext.jsx";
 import AnswerQuiz from "./views/AnswerQuiz.jsx";
-
+import About from "./views/About.jsx";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -37,6 +37,10 @@ const router = createBrowserRouter([
   {
     path: "users/:id",
     element: <Dashboard />,
+  },
+  {
+    path: "about",
+    element: <About />,
   },
   // <Route path="/quiz/:id" element={<AnswerQuiz />} />
 ]);

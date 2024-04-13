@@ -3,7 +3,8 @@ import { useNavigate } from "react-router-dom";
 import { UserContext } from "../contexts/userContext";
 import "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
-
+import NB from "./NB";
+import { Container, Row, Col, Button, Form } from "react-bootstrap";
 const HostQuiz = () => {
   const { user } = useContext(UserContext);
   const navigate = useNavigate();
@@ -87,52 +88,121 @@ const HostQuiz = () => {
   };
 
   return (
-    <div>
-      <h2>Host Quizzes</h2>
-      {quizzes.map((quiz, quizIndex) => (
-        <div key={quizIndex}>
-          <h3>Quiz {quizIndex + 1}</h3>
-          <form onSubmit={handleSubmit}>
-            <div>
-              <label>Header:</label>
-              <input
-                type="text"
-                value={quiz.header}
-                onChange={(e) => handleHeaderChange(e, quizIndex)}
-              />
-            </div>
-            {quiz.questions.map((questionObj, questionIndex) => (
-              <div key={questionIndex}>
-                <label>Question {questionIndex + 1}:</label>
+    <>
+      <NB />
+      {/* <div>
+        <h2>Host Quizzes</h2>
+        {quizzes.map((quiz, quizIndex) => (
+          <div key={quizIndex}>
+            <h3>Quiz {quizIndex + 1}</h3>
+            <form onSubmit={handleSubmit}>
+              <div>
+                <label>Header:</label>
                 <input
                   type="text"
-                  value={questionObj.question}
-                  onChange={(e) =>
-                    handleQuestionChange(e, quizIndex, questionIndex)
-                  }
-                />
-                <label>Answer:</label>
-                <input
-                  type="text"
-                  value={questionObj.answer}
-                  onChange={(e) =>
-                    handleAnswerChange(e, quizIndex, questionIndex)
-                  }
+                  value={quiz.header}
+                  onChange={(e) => handleHeaderChange(e, quizIndex)}
                 />
               </div>
-            ))}
-            <button type="button" onClick={() => addQuestion(quizIndex)}>
-              Add Question
-            </button>
-            <button type="submit">Submit</button>
-          </form>
-          {submitted && <p>Submitted</p>}
-          <button onClick={() => removeQuiz(quizIndex)}>Remove Quiz</button>
+              {quiz.questions.map((questionObj, questionIndex) => (
+                <div key={questionIndex}>
+                  <label>Question {questionIndex + 1}:</label>
+                  <input
+                    type="text"
+                    value={questionObj.question}
+                    onChange={(e) =>
+                      handleQuestionChange(e, quizIndex, questionIndex)
+                    }
+                  />
+                  <label>Answer:</label>
+                  <input
+                    type="text"
+                    value={questionObj.answer}
+                    onChange={(e) =>
+                      handleAnswerChange(e, quizIndex, questionIndex)
+                    }
+                  />
+                </div>
+              ))}
+              <button type="button" onClick={() => addQuestion(quizIndex)}>
+                Add Question
+              </button>
+              <button type="submit">Submit</button>
+            </form>
+            {submitted && <p>Submitted</p>}
+            <button onClick={() => removeQuiz(quizIndex)}>Remove Quiz</button>
+          </div>
+        ))}
+        <button onClick={addQuiz}>Add Quiz</button>
+        <button onClick={hostQuiz}>Host the Quizzes</button>
+      </div> */}
+      <Container>
+        <h2 className="text-center mt-4 mb-4">Host Quizzes</h2>
+        <hr className="my-4"></hr>
+        {quizzes.map((quiz, quizIndex) => (
+          <div key={quizIndex} className="mb-4">
+            <h3>Quiz {quizIndex + 1}</h3>
+            <Form onSubmit={handleSubmit}>
+              <Form.Group>
+                <Form.Label>Header:</Form.Label>
+                <Form.Control
+                  type="text"
+                  value={quiz.header}
+                  onChange={(e) => handleHeaderChange(e, quizIndex)}
+                />
+              </Form.Group>
+              {quiz.questions.map((questionObj, questionIndex) => (
+                <div key={questionIndex} className="mb-3">
+                  <Form.Group>
+                    <Form.Label>Question {questionIndex + 1}:</Form.Label>
+                    <Form.Control
+                      type="text"
+                      value={questionObj.question}
+                      onChange={(e) =>
+                        handleQuestionChange(e, quizIndex, questionIndex)
+                      }
+                    />
+                  </Form.Group>
+                  <Form.Group>
+                    <Form.Label>Answer:</Form.Label>
+                    <Form.Control
+                      type="text"
+                      value={questionObj.answer}
+                      onChange={(e) =>
+                        handleAnswerChange(e, quizIndex, questionIndex)
+                      }
+                    />
+                  </Form.Group>
+                </div>
+              ))}
+              <div className="d-flex justify-content-between mb-2">
+                <Button
+                  variant="primary"
+                  onClick={() => addQuestion(quizIndex)}
+                  className="mr-2"
+                >
+                  Add Question
+                </Button>
+                <Button variant="danger" onClick={() => removeQuiz(quizIndex)}>
+                  Remove Quiz
+                </Button>
+              </div>
+            </Form>
+          </div>
+        ))}
+
+        <div className="mb-4">
+          <Button variant="primary" onClick={addQuiz}>
+            Add Quiz
+          </Button>
         </div>
-      ))}
-      <button onClick={addQuiz}>Add Quiz</button>
-      <button onClick={hostQuiz}>Host the Quizzes</button>
-    </div>
+        <div>
+          <Button variant="success" onClick={hostQuiz}>
+            Host the Quizzes
+          </Button>
+        </div>
+      </Container>
+    </>
   );
 };
 

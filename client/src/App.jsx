@@ -8,7 +8,7 @@ import "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { QuizzesContext } from "./contexts/quizzesContext";
 import { AnswersContext } from "./contexts/answersContext";
-
+import NB from "./views/NB";
 function App() {
   // const [user, setUser] = useState({});
   const { user } = useContext(UserContext);
@@ -54,14 +54,12 @@ function App() {
 
   return (
     <>
-      <div className="container">
+      <NB />
+      <div className="container" style={{ margin: "10px 0 0 0" }}>
         {typeof user === "undefined" ? (
           navigate("/login")
         ) : (
           <div>
-            <a href={`/users/${user._id}`}>
-              <p>Logged in user: {user.username}</p>
-            </a>
             {console.log(user.username)}
             {/* Access other user properties similarly */}
             <button onClick={() => navigate("/host-quiz")}>Host Quiz</button>
