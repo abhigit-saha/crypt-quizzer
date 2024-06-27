@@ -15,3 +15,5 @@ Right now, the smart contracts are not yet linked with the app interface, but we
 - ether.js
 - Sepolia testnet
 - Metamask
+
+Note: the main branch does not contain smart contracts. To view them go to the other branches. 
